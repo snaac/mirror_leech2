@@ -123,7 +123,7 @@ def get_readable_message():
                 globals()['COUNT'] -= STATUS_LIMIT
                 globals()['PAGE_NO'] -= 1
         for index, download in enumerate(list(download_dict.values())[COUNT:], start=1):
-            msg += f"\n═════════ <i>{download.status()}</i> ══════════\n"
+            msg += f"\n╔═════════ <i>{download.status()}</i> ══════════╗\n\n"
             msg += f"<b>Name:</b> <code>{escape(str(download.name()))}</code>"
             msg += f"\n<b>Status:</b> <i>{download.status()}</i>"
             if download.status() not in [MirrorStatus.STATUS_SPLITTING, MirrorStatus.STATUS_SEEDING]:
@@ -145,14 +145,14 @@ def get_readable_message():
             else:
                 msg += f"\n<b>Size: </b>{download.size()}"
             msg += f"\n<b>To Stop: </b><code>/{BotCommands.CancelMirror} {download.gid()}</code>\n"
-            msg += f"\n════════════════════════════"
+            msg += f"\n╚════════════════════════════╝"
             msg += "\n"
             if STATUS_LIMIT is not None and index == STATUS_LIMIT:
                 break
         if len(msg) == 0:
             return None, None
         bmsg = f" "
-        bmsg += f""
+        bmsg += f"/n"
         dlspeed_bytes = 0
         upspeed_bytes = 0
         for download in list(download_dict.values()):
