@@ -109,7 +109,7 @@ def get_progress_bar_string(status):
     cFull = p // 8
     p_str = '▓' * cFull
     p_str += '░' * (12 - cFull)
-    p_str = f"[{p_str}]"
+    p_str = f"Process: {p_str}"
     return p_str
 
 def get_readable_message():
@@ -143,14 +143,14 @@ def get_readable_message():
                 msg += f" | <b>Time: </b>{download.seeding_time()}"
             else:
                 msg += f"\n<b>Size: </b>{download.size()}"
-            msg += f"\n To Stop: <code>/{BotCommands.CancelMirror} {download.gid()}</code>"
+            msg += f"\n<b>To Stop: </b><code>/{BotCommands.CancelMirror} {download.gid()}</code>"
             msg += "\n\n"
             if STATUS_LIMIT is not None and index == STATUS_LIMIT:
                 break
         if len(msg) == 0:
             return None, None
-        bmsg = f"<b>CPU:</b> {cpu_percent()}% | <b>FREE:</b> {get_readable_file_size(disk_usage(DOWNLOAD_DIR).free)}"
-        bmsg += f"\n<b>RAM:</b> {virtual_memory().percent}% | <b>UPTIME:</b> {get_readable_time(time() - botStartTime)}"
+        bmsg = f" "
+        bmsg += f""
         dlspeed_bytes = 0
         upspeed_bytes = 0
         for download in list(download_dict.values()):
