@@ -134,11 +134,6 @@ def get_readable_message():
                         msg += f"\n<b>Seeders:</b> {download.seeders_num()} | <b>Leechers:</b> {download.leechers_num()}"
                     except:
                         pass
-                if download.message.chat.type != 'private':
-                    try:
-                        chatid = str(download.message.chat.id)[4:]
-                        msg += f'\n<b>Source Msg: </b><a href="https://t.me/c/{chatid}/{download.message.message_id}">Click Here</a>'
-                    except:
             elif download.status() == MirrorStatus.STATUS_SEEDING:
                 msg += f"\n<b>Size: </b>{download.size()}"
                 msg += f"\n<b>Speed: </b>{download.upload_speed()}"
