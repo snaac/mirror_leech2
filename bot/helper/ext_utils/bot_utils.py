@@ -112,6 +112,19 @@ def get_progress_bar_string(status):
     p_str = f"Process: {p_str}"
     return p_str
 
+def progress_bar(percentage):
+    p_used = '⬢'
+    p_total = '⬡'
+    if isinstance(percentage, str):
+        return 'NaN'
+    try:
+        percentage = int(percentage)
+    except BaseException:
+        percentage = 0
+    return ''.join(
+        p_used if i <= percentage // 10 else p_total for i in range(1, 11)
+    )
+
 def get_readable_message():
     with download_dict_lock:
         msg = ""
