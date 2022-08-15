@@ -124,27 +124,27 @@ def get_readable_message():
                 globals()['PAGE_NO'] -= 1
         for index, download in enumerate(list(download_dict.values())[COUNT:], start=1):
             msg += f"\n╔═════════ <i>{download.status()}</i> ══════════╗\n\n"
-            msg += f"<b>Name:</b> <code>{escape(str(download.name()))}</code>"
-            msg += f"\n<b>Status:</b> <i>{download.status()}</i>"
+            msg += f"<b>\nName:</b> <code>{escape(str(download.name()))}</code>"
+            msg += f"\n<b>\nStatus:</b> <i>{download.status()}</i>"
             if download.status() not in [MirrorStatus.STATUS_SPLITTING, MirrorStatus.STATUS_SEEDING]:
-                msg += f"\n{get_progress_bar_string(download)} {download.progress()}"
-                msg += f"\n<b>Processed:</b> {get_readable_file_size(download.processed_bytes())} of {download.size()}"
-                msg += f"\n<b>Speed:</b> {download.speed()} | <b>ETA:</b> {download.eta()}"
+                msg += f"\n\n{get_progress_bar_string(download)} {download.progress()}"
+                msg += f"\n\n<b>Processed:</b> {get_readable_file_size(download.processed_bytes())} of {download.size()}"
+                msg += f"\n\n<b>Speed:</b> {download.speed()} | <b>ETA:</b> {download.eta()}"
                 if hasattr(download, 'seeders_num'):
                     try:
-                        msg += f"\n<b>Seeders:</b> {download.seeders_num()} | <b>Leechers:</b> {download.leechers_num()}"
+                        msg += f"\n\n<b>Seeders:</b> {download.seeders_num()} | <b>Leechers:</b> {download.leechers_num()}"
                     except:
                         pass
-            elif download.status() == MirrorStatus.STATUS_SEEDING:
-                msg += f'\n<b>User:</b> ️<code>{download.message.from_user.first_name}</code>️(<code>{download.message.from_user.id}</code>)'
+            elif download.status() == MirrorStatus.STATUS_SEEDING
                 msg += f"\n<b>Size: </b>{download.size()}"
-                msg += f"\n<b>Speed: </b>{download.upload_speed()}"
-                msg += f" | <b>Uploaded: </b>{download.uploaded_bytes()}"
-                msg += f"\n<b>Ratio: </b>{download.ratio()}"
+                msg += f"\n<b>\nSpeed: </b>{download.upload_speed()}"
+                msg += f" | <b>\nUploaded: </b>{download.uploaded_bytes()}"
+                msg += f"\n\n<b>Ratio: </b>{download.ratio()}"
                 msg += f" | <b>Time: </b>{download.seeding_time()}"
             else:
-                msg += f"\n<b>Size: </b>{download.size()}"
-            msg += f"\n<b>To Stop: </b><code>/{BotCommands.CancelMirror} {download.gid()}</code>\n"
+                msg += f"\n\n<b>Size: </b>{download.size()}"
+            msg += f"\n<b>\nTo Stop: </b><code>/{BotCommands.CancelMirror} {download.gid()}</code>\n"
+            msg += f'\n\n<b>User:</b> ️<code>{download.message.from_user.first_name}</code>️(<code>{download.message.from_user.id}</code>)'
             msg += f"\n╚════════════════════════════╝"
             msg += "\n"
             if STATUS_LIMIT is not None and index == STATUS_LIMIT:
@@ -152,7 +152,7 @@ def get_readable_message():
         if len(msg) == 0:
             return None, None
         bmsg = f" "
-        bmsg += f"/n"
+        bmsg += f"\n"
         dlspeed_bytes = 0
         upspeed_bytes = 0
         for download in list(download_dict.values()):
