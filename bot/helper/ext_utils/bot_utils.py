@@ -112,19 +112,6 @@ def get_progress_bar_string(status):
     p_str = f"Process: {p_str}"
     return p_str
 
-def progress_bar(percentage):
-    p_used = '⬢'
-    p_total = '⬡'
-    if isinstance(percentage, str):
-        return 'NaN'
-    try:
-        percentage = int(percentage)
-    except BaseException:
-        percentage = 0
-    return ''.join(
-        p_used if i <= percentage // 10 else p_total for i in range(1, 11)
-    )
-
 def get_readable_message():
     with download_dict_lock:
         msg = ""
@@ -136,7 +123,7 @@ def get_readable_message():
                 globals()['COUNT'] -= STATUS_LIMIT
                 globals()['PAGE_NO'] -= 1
         for index, download in enumerate(list(download_dict.values())[COUNT:], start=1):
-            msg += f"\n╔═════════ <i>{download.status()}</i> ══════════╗\n\n"
+            msg += f"\n╔═════════ ... <i>{download.status()}</i> ... ══════════╗\n\n"
             msg += f"<b> Name:</b> <code>{escape(str(download.name()))}</code>"
             msg += f"\n<b>\n Status:</b> <i>{download.status()}</i>"
             if download.status() not in [MirrorStatus.STATUS_SPLITTING, MirrorStatus.STATUS_SEEDING]:
