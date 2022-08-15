@@ -144,7 +144,7 @@ def get_readable_message():
             else:
                 msg += f"\n\n<b> Size: </b>{download.size()}"
             msg += f"\n<b>\n To Stop: </b><code>/{BotCommands.CancelMirror} {download.gid()}</code>"
-            msg += f'\n\n<b> User:</b> ️<code>{download.message.from_user.first_name}</code>️(<code>{download.message.from_user.id}</code>)'
+            msg += f'\n\n<b> User:</b> ️<code>{download.message.from_user.first_name}</code>️'
             msg += f"\n\n╚════════════════════════════╝"
             msg += "\n"
             if STATUS_LIMIT is not None and index == STATUS_LIMIT:
