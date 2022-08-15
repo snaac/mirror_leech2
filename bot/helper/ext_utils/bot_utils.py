@@ -135,7 +135,7 @@ def get_readable_message():
                         msg += f"\n\n<b>Seeders:</b> {download.seeders_num()} | <b>Leechers:</b> {download.leechers_num()}"
                     except:
                         pass
-            elif download.status() == MirrorStatus.STATUS_SEEDING
+            elif download.status() == MirrorStatus.STATUS_SEEDING:
                 msg += f"\n<b>Size: </b>{download.size()}"
                 msg += f"\n<b>\nSpeed: </b>{download.upload_speed()}"
                 msg += f" | <b>\nUploaded: </b>{download.uploaded_bytes()}"
