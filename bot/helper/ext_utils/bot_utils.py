@@ -147,7 +147,7 @@ def get_readable_message():
             uname = f'<a href="tg://user?id={update.message.from_user.id}">{update.message.from_user.first_name}</a>'
             msg += f"╠➜<i>To Stop: </i><code>/{BotCommands.CancelMirror} {download.gid()}</code>\n"
             msg += f"╠═════════════════════════════╗\n"
-            msg += f'╠➜<i>Request By:</i> ️<code>{download.message.from_user.first_name}</code>️\n'
+            msg += f'╠➜<i>Request By:</i> ️{uname} <code>{download.message.from_user.first_name}</code>️\n'
             msg += f"╚═════════════════════════════╝\n"
             msg += " "
             if STATUS_LIMIT is not None and index == STATUS_LIMIT:
