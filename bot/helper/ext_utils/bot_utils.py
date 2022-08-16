@@ -144,13 +144,12 @@ def get_readable_message():
                 msg += f" "
             else:
                 msg += f" "
-            chatid = (download.message.chat.id)
             uname = f'<a href="tg://user?id={download.message.from_user.id}">{download.message.from_user.first_name}</a>'
             msg += f"╠➜<i>To Stop: </i><code>/{BotCommands.CancelMirror} {download.gid()}</code>\n"
             msg += f"╠═════════════════════════════╗\n"
-            msg += f'╠➜<i>Request By:</i> ️{uname}'
+            msg += f'╠➜<i>Request By:</i> ️{uname}' \n
             msg += f"╚═════════════════════════════╝\n"
-            msg += f'\n<b>Source Msg: </b><a href="https://t.me/c/{chatid}/{download.message.message_id}">Click Here</a>'
+            msg += f'\n<b>Source Msg: </b><a href="https://t.me/c/1711392078/{download.message.message_id}">Click Here</a>'
             msg += " "
             if STATUS_LIMIT is not None and index == STATUS_LIMIT:
                 break
