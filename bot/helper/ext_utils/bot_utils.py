@@ -144,7 +144,7 @@ def get_readable_message():
                 msg += f" "
             else:
                 msg += f" "
-            uname = f'<a href="tg://user?id={update.message.from_user.id}">{update.message.from_user.first_name}</a>'
+            uname = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
             msg += f"╠➜<i>To Stop: </i><code>/{BotCommands.CancelMirror} {download.gid()}</code>\n"
             msg += f"╠═════════════════════════════╗\n"
             msg += f'╠➜<i>Request By:</i> ️{uname} <code>{download.message.from_user.first_name}</code>️\n'
