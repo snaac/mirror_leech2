@@ -123,30 +123,32 @@ def get_readable_message():
                 globals()['COUNT'] -= STATUS_LIMIT
                 globals()['PAGE_NO'] -= 1
         for index, download in enumerate(list(download_dict.values())[COUNT:], start=1):
-            msg += f"\n╔═════════ ... <i>{download.status()}</i> ... ══════════╗\n\n"
-            msg += f"<b> Name:</b> <code>{escape(str(download.name()))}</code>"
-            msg += f"\n<b>\n Status:</b> <i>{download.status()}</i>"
+            msg += f"╔═════════════════════════════╗\n"
+            msg += f"╠➜<i>Name:</i><code>{escape(str(download.name()))}</code>\n"
+            msg += f"╠═════════════════════════════╝\n"
+            msg += f"╠➜<i>Status:</i> <i>{download.status()}</i>\n"
+            msg += f"╠═════════════════════════════╗\n"
             if download.status() not in [MirrorStatus.STATUS_SPLITTING, MirrorStatus.STATUS_SEEDING]:
-                msg += f"\n\n {get_progress_bar_string(download)} {download.progress()}"
-                msg += f"\n\n<b> Processed:</b> {get_readable_file_size(download.processed_bytes())} of {download.size()}"
-                msg += f"\n\n<b> Speed:</b> {download.speed()} | <b>ETA:</b> {download.eta()}"
+                msg += f"╠➜{get_progress_bar_string(download)} {download.progress()}\n"
+                msg += f"╠═════════════════════════════╝\n"
+                msg += f"╠➜<i>Processed:</i> {get_readable_file_size(download.processed_bytes())} of {download.size()}\n"
+                msg += f"╠═════════════════════════════╗\n"
+                msg += f"╠➜<i>Speed:</i> {download.speed()} | <i>ETA:</i> {download.eta()}\n"
+                msg += f"╠═════════════════════════════╝\n"
                 if hasattr(download, 'seeders_num'):
                     try:
-                        msg += f"\n\n<b> Seeders:</b> {download.seeders_num()} | <b>Leechers:</b> {download.leechers_num()}"
+                        msg += f"<i> Seeders:</i> {download.seeders_num()} | <i>Leechers:</i> {download.leechers_num()}\n"
                     except:
                         pass
             elif download.status() == MirrorStatus.STATUS_SEEDING:
-                msg += f"\n<b> Size: </b>{download.size()}"
-                msg += f"\n<b>\n Speed: </b>{download.upload_speed()}"
-                msg += f" | <b>\n Uploaded: </b>{download.uploaded_bytes()}"
-                msg += f"\n\n<b> Ratio: </b>{download.ratio()}"
-                msg += f" | <b> Time: </b>{download.seeding_time()}"
+                msg += f" "
             else:
-                msg += f"\n\n<b> Size: </b>{download.size()}"
-            msg += f"\n<b>\n To Stop: </b><code>/{BotCommands.CancelMirror} {download.gid()}</code>"
-            msg += f'\n\n<b> User:</b> ️<code>{download.message.from_user.first_name}</code>️'
-            msg += f"\n\n╚════════════════════════════╝"
-            msg += "\n"
+                msg += f" "
+            msg += f"╠➜<i>To Stop: </i><code>/{BotCommands.CancelMirror} {download.gid()}</code>\n"
+            msg += f"╠═════════════════════════════╗\n"
+            msg += f'╠➜<i>Request By:</i> ️<code>{download.message.from_user.first_name}</code>️\n'
+            msg += f"╚═════════════════════════════╝\n"
+            msg += " "
             if STATUS_LIMIT is not None and index == STATUS_LIMIT:
                 break
         if len(msg) == 0:
