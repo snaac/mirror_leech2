@@ -137,7 +137,7 @@ def get_readable_message():
                 msg += f"╠═════════════════════════════╝\n"
                 if hasattr(download, 'seeders_num'):
                     try:
-                        msg += f"<i> Seeders:</i> {download.seeders_num()} | <i>Leechers:</i> {download.leechers_num()}\n"
+                        msg += f""
                     except:
                         pass
             elif download.status() == MirrorStatus.STATUS_SEEDING:
@@ -145,7 +145,7 @@ def get_readable_message():
             else:
                 msg += f" "
             uname = f'<a href="tg://user?id={download.message.from_user.id}">{download.message.from_user.first_name}</a>'
-            msg += f"╠➜<i>Engine:</i> <i>{download.eng()}</i>\n"
+            msg += f"╠➜<i>Type /help for bot comand</i>\n"
             msg += f"╠═════════════════════════════╗\n"
             msg += f'╠➜<i>Source Msg: </i><a href="https://t.me/c/1711392078/{download.message.message_id}">Click Here</a>\n'
             msg += f"╠═════════════════════════════╝\n"
