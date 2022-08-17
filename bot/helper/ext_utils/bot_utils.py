@@ -124,7 +124,7 @@ def get_readable_message():
                 globals()['PAGE_NO'] -= 1
         for index, download in enumerate(list(download_dict.values())[COUNT:], start=1):
             msg += f"╔═════════════════════════════╗\n"
-            msg += f"╠➜<i>Name:</i><code>{escape(str(download.name()))}</code>\n"
+            msg += f"╠➜<i>Name:</i> <code>{escape(str(download.name()))}</code>\n"
             msg += f"╠═════════════════════════════╝\n"
             msg += f"╠➜<i>Status:</i> <i>{download.status()}</i>\n"
             msg += f"╠═════════════════════════════╗\n"
@@ -145,11 +145,14 @@ def get_readable_message():
             else:
                 msg += f" "
             uname = f'<a href="tg://user?id={download.message.from_user.id}">{download.message.from_user.first_name}</a>'
+            msg += f"╠➜<i>Engine:</i> <i>{download.eng()}</i>\n"
+            msg += f"╠═════════════════════════════╗\n"
+            msg += f'╠➜<i>Source Msg: </i><a href="https://t.me/c/1711392078/{download.message.message_id}">Click Here</a>\n'
+            msg += f"╠═════════════════════════════╝\n"
             msg += f"╠➜<i>To Stop: </i><code>/{BotCommands.CancelMirror} {download.gid()}</code>\n"
             msg += f"╠═════════════════════════════╗\n"
             msg += f'╠➜<i>Request By:</i> ️{uname} \n'
             msg += f"╚═════════════════════════════╝\n"
-            msg += f'\n<b>Source Msg: </b><a href="https://t.me/c/1711392078/{download.message.message_id}">Click Here</a>'
             msg += " "
             if STATUS_LIMIT is not None and index == STATUS_LIMIT:
                 break
