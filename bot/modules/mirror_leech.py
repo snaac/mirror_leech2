@@ -149,6 +149,7 @@ def _mirror_leech(bot, message, isZip=False, extract=False, isQbit=False, isLeec
         content_type = get_content_type(link)
         if content_type is None or re_match(r'text/html|text/plain', content_type):
             try:
+            	gdtot_link = bot_utils.is_gdtot_link(link)
                 link = direct_link_generator(link)
                 LOGGER.info(f"Generated link: {link}")
             except DirectDownloadLinkException as e:
