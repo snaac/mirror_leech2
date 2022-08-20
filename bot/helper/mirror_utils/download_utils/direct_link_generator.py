@@ -377,7 +377,7 @@ def gdtot(url: str) -> str:
 
 
     if CRYPT is None:
-        raise DirectDownloadLinkException(f"ERROR: PHPSESSID and CRYPT variables not provided")
+        raise DirectDownloadLinkException("ERROR: PHPSESSID and CRYPT variables not provided")
 
     headers = {'upgrade-insecure-requests': '1',
                'save-data': 'on',
@@ -397,7 +397,7 @@ def gdtot(url: str) -> str:
     headers['referer'] = s1
     s3 = BeautifulSoup(requests.get(s2, headers=headers, cookies=cookies).content, 'html.parser').find('div', align="center")
     if s3 is None:
-        s3 = BeautifulSoup(requests.get(r2, headers=headers, cookies=cookies).content, 'html.parser')
+        s3 = BeautifulSoup(requests.get(s2, headers=headers, cookies=cookies).content, 'html.parser')
         status = s3.find('h4').text
         raise DirectDownloadLinkException(f"ERROR: {status}")
     else:
