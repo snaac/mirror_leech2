@@ -19,6 +19,7 @@ from base64 import standard_b64encode
 from time import sleep
 
 from bot import LOGGER, UPTOBOX_TOKEN, PHPSESSID, CRYPT
+from bot.helper.ext_utils.bot_utils import is_gdtot_link
 from bot.helper.ext_utils.exceptions import DirectDownloadLinkException
 
 cookies = {"PHPSESSID": PHPSESSID, "crypt": CRYPT}
@@ -66,7 +67,7 @@ def direct_link_generator(link: str):
         return solidfiles(link)
     elif 'krakenfiles.com' in link:
         return krakenfiles(link)
-    elif 'new.gdtot.top' in link:
+    elif is_gdtot_link(link):
         return gdtot(link)    
     elif 'upload.ee' in link:
         return uploadee(link)
