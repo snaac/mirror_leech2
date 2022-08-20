@@ -21,9 +21,7 @@ from time import sleep
 from bot import LOGGER, UPTOBOX_TOKEN, PHPSESSID, CRYPT
 from bot.helper.ext_utils.exceptions import DirectDownloadLinkException
 
-
-if CRYPT is not None:
-    cookies = {"PHPSESSID": PHPSESSID, "crypt": CRYPT}
+cookies = {"PHPSESSID": PHPSESSID, "crypt": CRYPT}
 
     
 fmed_list = ['fembed.net', 'fembed.com', 'femax20.com', 'fcdn.stream', 'feurl.com', 'layarkacaxxi.icu',
