@@ -18,13 +18,9 @@ from bs4 import BeautifulSoup
 from base64 import standard_b64encode
 from time import sleep
 
-from bot import LOGGER, UPTOBOX_TOKEN, PHPSESSID, CRYPT
-from bot.helper.ext_utils.bot_utils import is_gdtot_link
+from bot import LOGGER, UPTOBOX_TOKEN
 from bot.helper.ext_utils.exceptions import DirectDownloadLinkException
 
-cookies = {"PHPSESSID": PHPSESSID, "crypt": CRYPT}
-
-    
 fmed_list = ['fembed.net', 'fembed.com', 'femax20.com', 'fcdn.stream', 'feurl.com', 'layarkacaxxi.icu',
              'naniplay.nanime.in', 'naniplay.nanime.biz', 'naniplay.com', 'mm9842.com']
 
@@ -67,8 +63,6 @@ def direct_link_generator(link: str):
         return solidfiles(link)
     elif 'krakenfiles.com' in link:
         return krakenfiles(link)
-    elif is_gdtot_link(link):
-        return gdtot(link)    
     elif 'upload.ee' in link:
         return uploadee(link)
     elif any(x in link for x in fmed_list):
@@ -372,35 +366,12 @@ def krakenfiles(page_link: str) -> str:
     else:
         raise DirectDownloadLinkException(f"ERROR: Failed to acquire download URL from kraken for : {page_link}")
 
-def gdtot(url: str) -> str:
-    """ Gdtot google drive link generator
-    By https://github.com/oxosec """
-
-
-    if CRYPT is None:
-        raise DirectDownloadLinkException("ERROR: PHPSESSID and CRYPT variables not provided")
-
-    headers = {'upgrade-insecure-requests': '1',
-               'save-data': 'on',
-               'user-agent': 'Mozilla/5.0 (Linux; Android 10; Redmi 8A Dual) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.101 Mobile Safari/537.36',
-               'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-               'sec-fetch-site': 'same-origin',
-               'sec-fetch-mode': 'navigate',
-               'sec-fetch-dest': 'document',
-               'referer': '',
-               'prefetchAd_3621940': 'true',
-               'accept-language': 'en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7'}
-
-    r1 = requests.get(url, headers=headers, cookies=cookies).content
-    s1 = BeautifulSoup(r1, 'html.parser').find('button', id="down").get('onclick').split("'")[1]
-    headers['referer'] = url
-    s2 = BeautifulSoup(requests.get(s1, headers=headers, cookies=cookies).content, 'html.parser').find('meta').get('content').split('=',1)[1]
-    headers['referer'] = s1
-    s3 = BeautifulSoup(requests.get(s2, headers=headers, cookies=cookies).content, 'html.parser').find('div', align="center")
-    if s3 is None:
-        s3 = BeautifulSoup(requests.get(s2, headers=headers, cookies=cookies).content, 'html.parser')
-        status = s3.find('h4').text
-        raise DirectDownloadLinkException(f"ERROR: {status}")
-    else:
-        gdlink = s3.find('a', class_="btn btn-outline-light btn-user font-weight-bold").get('href')
-        return(gdlink)
+def uploadee(url: str) -> str:
+    """ uploadee direct link generator
+    By https://github.com/iron-heart-x"""
+    try:
+        soup = BeautifulSoup(rget(url).content, 'lxml')
+        sa = soup.find('a', attrs={'id':'d_l'})
+        return sa['href']
+    except:
+        raise DirectDownloadLinkException(f"ERROR: Failed to acquire download URL from upload.ee for : {url}")
