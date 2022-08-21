@@ -117,7 +117,7 @@ AUTHORIZED_CHATS = set()
 SUDO_USERS = set()
 AS_DOC_USERS = set()
 AS_MEDIA_USERS = set()
-EXTENSION_FILTER = set()
+EXTENSION_FILTER = set(['.aria2'])
 LEECH_LOG = set()	
 MIRROR_LOGS = set()
 
@@ -137,24 +137,24 @@ except:
     pass
 try:
     fx = getConfig('EXTENSION_FILTER')
-    except:	
-    pass	
-try:	
-    aid = getConfig('LEECH_LOG')	
-    aid = aid.split(' ')	
-    for _id in aid:	
-        LEECH_LOG.add(int(_id))	
-except:	
-    pass	
-try:	
-    aid = getConfig('MIRROR_LOGS')	
-    aid = aid.split(' ')	
-    for _id in aid:	
-        MIRROR_LOGS.add(int(_id))
     if len(fx) > 0:
         fx = fx.split()
         for x in fx:
             EXTENSION_FILTER.add(x.strip().lower())
+except:
+    pass
+try:
+    aid = getConfig('LEECH_LOG')
+    aid = aid.split(' ')
+    for _id in aid:
+        LEECH_LOG.add(int(_id))
+except:
+    pass
+try:
+    aid = getConfig('MIRROR_LOGS')
+    aid = aid.split(' ')
+    for _id in aid:
+        MIRROR_LOGS.add(int(_id))            
 except:
     pass
 try:
@@ -370,11 +370,6 @@ try:
         raise KeyError
 except:
     CUSTOM_FILENAME = None
-try:	
-    BOT_PM = getConfig('BOT_PM')	
-    BOT_PM = BOT_PM.lower() == 'true'	
-except KeyError:	
-    BOT_PM = False
 try:
     TOKEN_PICKLE_URL = getConfig('TOKEN_PICKLE_URL')
     if len(TOKEN_PICKLE_URL) == 0:
@@ -428,6 +423,11 @@ try:
     YT_COOKIES_URL = getConfig('YT_COOKIES_URL')
     if len(YT_COOKIES_URL) == 0:
         raise KeyError
+try:
+    BOT_PM = getConfig('BOT_PM')	
+    BOT_PM = BOT_PM.lower() == 'true'	
+except KeyError:	
+    BOT_PM = False   
     try:
         res = rget(YT_COOKIES_URL)
         if res.status_code == 200:
