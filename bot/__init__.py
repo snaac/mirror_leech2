@@ -423,11 +423,6 @@ try:
     YT_COOKIES_URL = getConfig('YT_COOKIES_URL')
     if len(YT_COOKIES_URL) == 0:
         raise KeyError
-try:
-    BOT_PM = getConfig('BOT_PM')	
-    BOT_PM = BOT_PM.lower() == 'true'	
-except Exception as e:
-    BOT_PM = False   
     try:
         res = rget(YT_COOKIES_URL)
         if res.status_code == 200:
