@@ -426,7 +426,7 @@ try:
 try:
     BOT_PM = getConfig('BOT_PM')	
     BOT_PM = BOT_PM.lower() == 'true'	
-except KeyError:	
+except Exception as e:
     BOT_PM = False   
     try:
         res = rget(YT_COOKIES_URL)
